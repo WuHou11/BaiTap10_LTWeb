@@ -44,22 +44,27 @@
 						<tr>
 							<th>Category ID</th>
 							<th>Category Name</th>
+							<th>Description</th>
+							<th>Icon</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="category, iStat : ${categoryPage.content}">
 							<td scope="row">[[${category.categoryId}]]</td>
-							<td th:text="${category.name}"></td>
-							<td><a
-								th:href="@{'/admin/categories/view/' + ${category.categoryId}}"
-								class="btn btn-outline-info"><i class="fas fa-info"></i></a> <a
-								th:href="@{'/admin/categories/edit/' + ${category.categoryId}}"
-								class="btn btn-outline-warning"><i class="fas fa-edit"></i></a>
+							<td th:text="${category.categoryName}"></td>
+							<td th:text="${category.description}"></td>
+							<td th:text="${category.icon}"></td>
+							<td>
+								<a th:href="@{'/admin/categories/view/' + ${category.categoryId}}"
+								   class="btn btn-outline-info"><i class="fas fa-info"></i></a> 
+								<a th:href="@{'/admin/categories/edit/' + ${category.categoryId}}"
+								   class="btn btn-outline-warning"><i class="fas fa-edit"></i></a>
 								<a th:data-id="${category.categoryId}"
-								th:data-name="${category.name}"
-								onclick="showconfirmation(this.getAttribute('data-id'), this.getAttribute('data-name'))"
-								class="btn btn-outline-danger"><i class="fa fa-trash"></i></a></td>
+								   th:data-name="${category.categoryName}"
+								   onclick="showconfirmation(this.getAttribute('data-id'), this.getAttribute('data-name'))"
+								   class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -67,8 +72,7 @@
 				<!-- Nếu không có dữ liệu -->
 				<div class="row" th:if="${!categoryPage.hasContent()}">
 					<div class="col">
-						<div class="alert alert-danger" role="alert">No Category
-							Found</div>
+						<div class="alert alert-danger" role="alert">No Category Found</div>
 					</div>
 				</div>
 			</div>
@@ -79,8 +83,8 @@
 					<div class="col-3">
 						<form th:if="${categoryPage.totalPages > 0}" action="">
 							<div class="mb-3 input-group float-left">
-								<label for="size" class="mr-2">Page size:</label> <select
-									class="form-select ml-2" name="size" aria-label="size"
+								<label for="size" class="mr-2">Page size:</label> 
+								<select class="form-select ml-2" name="size" aria-label="size"
 									id="size" onchange="this.form.submit()">
 									<option th:selected="${categoryPage.size == 3}" value="3">3</option>
 									<option th:selected="${categoryPage.size == 5}" value="5">5</option>
@@ -98,27 +102,22 @@
 							<ul class="pagination justify-content-center">
 
 								<!-- First -->
-								<li
-									th:class="${1 == categoryPage.number + 1} ? 'page-item active' : 'page-item'">
-									<a
-									th:href="@{/admin/categories/searchpaging(name=${name},size=${categoryPage.size},page=1)}"
-									class="page-link">First</a>
+								<li th:class="${1 == categoryPage.number + 1} ? 'page-item active' : 'page-item'">
+									<a th:href="@{/admin/categories/searchpaging(name=${name},size=${categoryPage.size},page=1)}"
+									   class="page-link">First</a>
 								</li>
 
 								<!-- Các trang -->
 								<li th:each="pageNumber : ${pageNumbers}"
 									th:class="${pageNumber == categoryPage.number + 1} ? 'page-item active' : 'page-item'">
-									<a
-									th:href="@{/admin/categories/searchpaging(name=${name},size=${categoryPage.size},page=${pageNumber})}"
-									class="page-link" th:text="${pageNumber}"></a>
+									<a th:href="@{/admin/categories/searchpaging(name=${name},size=${categoryPage.size},page=${pageNumber})}"
+									   class="page-link" th:text="${pageNumber}"></a>
 								</li>
 
 								<!-- Last -->
-								<li
-									th:class="${categoryPage.totalPages == categoryPage.number + 1} ? 'page-item active' : 'page-item'">
-									<a
-									th:href="@{/admin/categories/searchpaging(name=${name},size=${categoryPage.size},page=${categoryPage.totalPages})}"
-									class="page-link">Last</a>
+								<li th:class="${categoryPage.totalPages == categoryPage.number + 1} ? 'page-item active' : 'page-item'">
+									<a th:href="@{/admin/categories/searchpaging(name=${name},size=${categoryPage.size},page=${categoryPage.totalPages})}"
+									   class="page-link">Last</a>
 								</li>
 
 							</ul>

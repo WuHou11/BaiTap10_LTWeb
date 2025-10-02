@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang chủ User</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light d-flex flex-column justify-content-center align-items-center vh-100">
+
+    <!-- Nội dung chính -->
+    <div class="card shadow-lg p-4 text-center" style="max-width: 400px; width: 100%;">
+        <h2 class="text-primary mb-3">Xin chào User!</h2>
+        <p class="lead">Bạn đã đăng nhập với quyền <b class="text-success">User</b>.</p>
+
+        <hr class="my-3">
+
+        <a th:href="@{/logout}" class="btn btn-danger w-100">🚪 Đăng xuất</a>
+    </div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

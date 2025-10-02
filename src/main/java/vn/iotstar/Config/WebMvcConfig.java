@@ -2,6 +2,7 @@ package vn.iotstar.Config;
 
 import java.util.Locale;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +11,6 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
-import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
@@ -31,11 +31,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return messageResource;
     }
 
+    @Autowired
+    private AuthInterceptor authInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        LocaleChangeInterceptor localeInterceptor = new LocaleChangeInterceptor();
-        localeInterceptor.setParamName("language");
-        registry.addInterceptor(localeInterceptor).addPathPatterns("/**");
+        registry.addInterceptor(authInterceptor)
+                .addPathPatterns("/admin/**", "/user/**")
+                .excludePathPatterns("/login", "/logout", "/css/**", "/js/**", "/images/**");
     }
 }
 

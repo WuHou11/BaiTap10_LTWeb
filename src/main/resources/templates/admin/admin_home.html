@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang chủ Admin</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <!-- Tiêu đề -->
+    <div class="text-center mb-4">
+        <h2 class="text-primary">Xin chào Admin!</h2>
+        <p class="lead">Bạn đã đăng nhập với quyền <b class="text-success">Admin</b>.</p>
+    </div>
+
+    <!-- Menu chức năng -->
+    <div class="row justify-content-center">
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">📂 Quản lý Category</h5>
+                    <p class="card-text">Quản lý danh mục sản phẩm</p>
+                    <a th:href="@{/admin/categories/list}" class="btn btn-outline-primary">Đi tới</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">🛒 Quản lý Product</h5>
+                    <p class="card-text">Thêm, sửa, xóa sản phẩm</p>
+                    <a th:href="@{/admin/products}" class="btn btn-outline-success">Đi tới</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Đăng xuất -->
+    <div class="text-center mt-4">
+        <a th:href="@{/logout}" class="btn btn-danger">🚪 Đăng xuất</a>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

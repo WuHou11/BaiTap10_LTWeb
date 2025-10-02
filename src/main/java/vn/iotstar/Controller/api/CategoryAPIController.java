@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.Valid;
 import vn.iotstar.Entity.Category;
-import vn.iotstar.Model.CategoryModel;
 import vn.iotstar.Service.ICategoryService;
 import vn.iotstar.Service.IStorageService;
 import vn.iotstar.Model.Response;
@@ -20,14 +19,16 @@ import vn.iotstar.Model.Response;
 @RestController
 @RequestMapping(path = "/api/category")
 public class CategoryAPIController {
+
     @Autowired
     private ICategoryService categoryService;
+
     @Autowired
     private IStorageService storageService;
 
     @GetMapping
     public ResponseEntity<?> getAllCategory() {
-        return new ResponseEntity<Response>(
+        return new ResponseEntity<>(
                 new Response(true, "Thành công", categoryService.findAll()),
                 HttpStatus.OK);
     }
@@ -44,7 +45,7 @@ public class CategoryAPIController {
 
     @PostMapping(path = "/add")
     public ResponseEntity<?> addCategory(
-            @Valid @ModelAttribute CategoryModel categoryModel,
+            @Valid @ModelAttribute Category category,
             BindingResult result,
             @RequestParam("icon") MultipartFile icon) {
 
@@ -52,13 +53,12 @@ public class CategoryAPIController {
             return ResponseEntity.badRequest().body(result.getAllErrors());
         }
 
-        Optional<Category> optCategory = categoryService.findByCategoryName(categoryModel.getName());
+        Optional<Category> optCategory = categoryService.findByCategoryName(category.getCategoryName());
         if (optCategory.isPresent()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Category đã tồn tại trong hệ thống");
         }
 
-        Category category = new Category();
         // upload icon
         if (!icon.isEmpty()) {
             UUID uuid = UUID.randomUUID();
@@ -67,9 +67,6 @@ public class CategoryAPIController {
             storageService.store(icon, category.getIcon());
         }
 
-        category.setCategoryName(categoryModel.getName());
-        category.setDescription(categoryModel.getDescription());
-
         categoryService.save(category);
         return ResponseEntity.ok(new Response(true, "Thêm Thành công", category));
     }
@@ -77,7 +74,7 @@ public class CategoryAPIController {
     @PutMapping(path = "/update/{id}")
     public ResponseEntity<?> updateCategory(
             @PathVariable("id") Long id,
-            @Valid @ModelAttribute CategoryModel categoryModel,
+            @Valid @ModelAttribute Category categoryUpdate,
             BindingResult result,
             @RequestParam(value = "icon", required = false) MultipartFile icon) {
 
@@ -93,6 +90,7 @@ public class CategoryAPIController {
 
         Category category = optCategory.get();
 
+        // upload icon nếu có
         if (icon != null && !icon.isEmpty()) {
             UUID uuid = UUID.randomUUID();
             String uuString = uuid.toString();
@@ -100,8 +98,8 @@ public class CategoryAPIController {
             storageService.store(icon, category.getIcon());
         }
 
-        category.setCategoryName(categoryModel.getName());
-        category.setDescription(categoryModel.getDescription());
+        category.setCategoryName(categoryUpdate.getCategoryName());
+        category.setDescription(categoryUpdate.getDescription());
 
         categoryService.save(category);
         return ResponseEntity.ok(new Response(true, "Cập nhật Thành công", category));

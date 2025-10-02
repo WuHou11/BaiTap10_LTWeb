@@ -25,29 +25,50 @@
                                th:field="*{categoryId}"
                                id="categoryId"
                                name="categoryId"
-                               aria-describedby="categoryIdid"
                                placeholder="Category Id">
-                        <div th:if="${#fields.hasErrors('categoryId')}"
-                             id="categoryIdid"
-                             class="form-text text-muted">
-                            <span class="text-danger">Category ID is required!</span>
-                        </div>
                     </div>
 
                     <!-- Category Name -->
                     <div class="mb-3">
-                        <label for="name" class="form-label">Category Name:</label>
+                        <label for="categoryName" class="form-label">Category Name:</label>
                         <input type="text"
                                class="form-control"
-                               th:field="*{name}"
-                               id="name"
-                               name="name"
-                               aria-describedby="nameIdid"
+                               th:field="*{categoryName}"
+                               id="categoryName"
+                               name="categoryName"
                                placeholder="Category Name">
-                        <div th:if="${#fields.hasErrors('name')}"
-                             id="nameIdid"
+                        <div th:if="${#fields.hasErrors('categoryName')}"
                              class="form-text text-muted">
-                            <span class="text-danger">Category Name is required!</span>
+                            <span class="text-danger">[[${#fields.errors('categoryName')}]]</span>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description:</label>
+                        <textarea class="form-control"
+                                  th:field="*{description}"
+                                  id="description"
+                                  name="description"
+                                  placeholder="Enter description"></textarea>
+                        <div th:if="${#fields.hasErrors('description')}"
+                             class="form-text text-muted">
+                            <span class="text-danger">[[${#fields.errors('description')}]]</span>
+                        </div>
+                    </div>
+
+                    <!-- Icon -->
+                    <div class="mb-3">
+                        <label for="icon" class="form-label">Icon:</label>
+                        <input type="text"
+                               class="form-control"
+                               th:field="*{icon}"
+                               id="icon"
+                               name="icon"
+                               placeholder="Enter icon URL or class">
+                        <div th:if="${#fields.hasErrors('icon')}"
+                             class="form-text text-muted">
+                            <span class="text-danger">[[${#fields.errors('icon')}]]</span>
                         </div>
                     </div>
 
