@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/layout_admin.html}">
+<head>
+<meta charset="UTF-8">
+<title>List Category</title>
+</head>
+<body>
+	<section class="row" layout:fragment="content">
+		<div class="col mt-4">
+			<div class="card">
+				<div class="card-header">List Category</div>
+				<div class="card-body">
+					<!-- Hiện thông báo -->
+					<div th:if="${message != null}" class="alert alert-primary"
+						role="alert">
+						<i>[[${message}]]</i>
+					</div>
+					<!-- Hết thông báo -->
+
+					<!-- Form tìm kiếm -->
+					<form th:action="@{/admin/categories/searchpaging}" method="get"
+						class="mb-3">
+						<input type="text" name="name" th:value="${name}"
+							placeholder="Search by name"
+							class="form-control w-25 d-inline-block">
+						<button type="submit" class="btn btn-primary">Search</button>
+					</form>
+
+					<!-- Nút thêm mới -->
+					<a th:href="@{/admin/categories/add}" class="btn btn-success mb-3">
+						<i class="fa fa-plus"></i> Add Category
+					</a>
+
+					<!-- Bảng dữ liệu -->
+					<div class="table-responsive">
+						<table class="table table-striped">
+							<thead class="thead-inverse">
+								<tr>
+									<th>Category ID</th>
+									<th>Category Name</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="category : ${categories}">
+									<td scope="row">[[${category.categoryId}]]</td>
+									<td th:text="${category.name}"></td>
+									<td><a
+										th:href="@{'/admin/categories/view/' + ${category.categoryId}}"
+										class="btn btn-outline-info"> <i class="fa fa-info"></i>
+									</a> <a
+										th:href="@{'/admin/categories/edit/' + ${category.categoryId}}"
+										class="btn btn-outline-warning"> <i class="fa fa-edit"></i>
+									</a> <a
+										th:href="@{'/admin/categories/delete/' + ${category.categoryId}}"
+										class="btn btn-outline-danger"
+										onclick="return confirm('Bạn có chắc muốn xóa?')"> <i
+											class="fa fa-trash"></i>
+									</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

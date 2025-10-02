@@ -1,0 +1,38 @@
+<!-- templates/admin/fragments/header.html -->
+<header th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+        <div class="container-fluid">
+            <!-- Logo + Tiêu đề -->
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img th:src="@{/images/myimage.jpg}" alt="Logo"
+                     class="rounded-circle border border-light"
+                     style="height:50px; width:50px; object-fit:cover; margin-right:10px;">
+                <span class="fw-bold fs-5">Hệ thống Quản lý Admin</span>
+            </a>
+
+            <!-- Nút toggle (mobile) -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#headerNavbar" aria-controls="headerNavbar"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menu bên phải -->
+            <div class="collapse navbar-collapse justify-content-end" id="headerNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/admin}"><i class="bi bi-house-door"></i> Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/profile}"><i class="bi bi-person-circle"></i> Tài khoản</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-warning" th:href="@{/logout}">
+                            <i class="bi bi-box-arrow-right"></i> Đăng xuất
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
